@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ResumeUpload.css";
 
+const API_BASE = process.env.REACT_APP_API_BASE;
+
 function ResumeUpload() {
   const [file, setFile] = useState(null);
   const [role, setRole] = useState("");
@@ -13,9 +15,12 @@ function ResumeUpload() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/resume/roles")
+      .get(`${API_BASE}/api/resume/roles`)
       .then((res) => setRoles(res.data))
-      .catch(() => setError("Failed to load roles"));
+      .catch((err) => {
+        console.error(err);
+        setError("Failed to load roles");
+      });
   }, []);
 
   const handleSubmit = async (e) => {
@@ -37,12 +42,13 @@ function ResumeUpload() {
       setError("");
 
       const res = await axios.post(
-        "http://localhost:8080/api/resume/upload",
+        `${API_BASE}/api/resume/upload`,
         formData
       );
 
       setResult(res.data);
-    } catch {
+    } catch (err) {
+      console.error(err);
       setError("Resume analysis failed");
     } finally {
       setLoading(false);
@@ -52,7 +58,6 @@ function ResumeUpload() {
   return (
     <div className="page">
       <div className="container">
-        {/* UPLOAD CARD */}
         <div className="card upload-card">
           <h2>Resume Analyzer</h2>
           <p className="subtitle">
@@ -96,7 +101,6 @@ function ResumeUpload() {
           {error && <p className="error">{error}</p>}
         </div>
 
-        {/* RESULT CARD */}
         {result && (
           <div className="card result-card">
             <h3>Candidate Match Result</h3>
@@ -106,21 +110,13 @@ function ResumeUpload() {
               <span className="score">{result.score}% Match</span>
             </div>
 
-            {/* SCORE BAR */}
             <div className="progress">
               <div
-                className={`progress-fill ${
-                  result.score >= 70
-                    ? "good"
-                    : result.score >= 40
-                    ? "avg"
-                    : "bad"
-                }`}
+                className="progress-fill"
                 style={{ width: `${result.score}%` }}
               />
             </div>
 
-            {/* SKILLS */}
             <div className="skills-section">
               <p className="section-title">Matched Skills</p>
               <div className="chips matched">
