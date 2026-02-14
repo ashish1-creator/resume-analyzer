@@ -1,0 +1,304 @@
+/* =========================
+   RESET & BASE
+   ========================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+/* =========================
+   PAGE BACKGROUND
+   ========================= */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #dbeafe 0%,
+    #eef5ff 45%,
+    #f3f7fb 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   CONTAINER
+   ========================= */
+.container {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* =========================
+   BASE CARD
+   ========================= */
+.card {
+  width: 420px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 30px 60px rgba(30, 64, 175, 0.18);
+}
+
+/* =====================================================
+   UPLOAD CARD – NEW DESIGN (FIRST PIC STYLE)
+   ===================================================== */
+.upload-card {
+  width: 440px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 26px;
+  padding: 34px 32px;
+  box-shadow:
+    0 20px 40px rgba(30, 64, 175, 0.15),
+    0 10px 20px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+/* Title */
+.upload-card h2 {
+  font-size: 22px;
+  color: #2563eb;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Subtitle */
+.upload-card .subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 26px;
+}
+
+/* =========================
+   FILE INPUT (BUTTON STYLE)
+   ========================= */
+.upload-card input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  border: 1.5px dashed #c7d2fe;
+  background: #f8fafc;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.upload-card input[type="file"]::file-selector-button {
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 14px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+/* =========================
+   SELECT & INPUT
+   ========================= */
+.upload-card select,
+.upload-card input[type="number"] {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  border: 1px solid #c7d2fe;
+  background: #ffffff;
+  font-size: 14px;
+  outline: none;
+}
+
+.upload-card select:focus,
+.upload-card input[type="number"]:focus {
+  border-color: #2563eb;
+}
+
+/* =========================
+   BUTTON (PILL STYLE)
+   ========================= */
+.upload-card .btn {
+  width: 100%;
+  height: 52px;
+  border-radius: 18px;
+  border: none;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.upload-card .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.35);
+}
+
+.upload-card .btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   RESULT CARD (UNCHANGED – AS REQUESTED)
+   ===================================================== */
+.card.result-card {
+  color: #1e293b;
+  animation: fadeUp 0.5s ease-in-out;
+}
+
+.card.result-card h3 {
+  font-size: 20px;
+  color: #1e40af;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.card.result-card .meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card.result-card .score {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+/* =========================
+   PROGRESS BAR
+   ========================= */
+.progress {
+  width: 100%;
+  height: 14px;
+  background: rgba(30, 64, 175, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 12px 0 18px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
+
+.progress-fill.good {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.progress-fill.avg {
+  background: linear-gradient(90deg, #facc15, #eab308);
+}
+
+.progress-fill.bad {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+/* =========================
+   SECTION TITLES
+   ========================= */
+.section-title {
+  margin-top: 18px;
+  margin-bottom: 6px;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* =========================
+   SKILL CHIPS
+   ========================= */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips span {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.chips.matched span {
+  background: rgba(34, 197, 94, 0.18);
+  color: #166534;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.chips.missing span {
+  background: rgba(239, 68, 68, 0.18);
+  color: #7f1d1d;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.empty {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* =========================
+   RECOMMENDATION
+   ========================= */
+.recommendation {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(37, 99, 235, 0.1);
+  border-left: 4px solid #2563eb;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+/* =========================
+   ANIMATION
+   ========================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card,
+  .upload-card {
+    width: 95%;
+  }
+
+  .card.result-card h3 {
+    font-size: 18px;
+  }
+
+  .chips span {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
