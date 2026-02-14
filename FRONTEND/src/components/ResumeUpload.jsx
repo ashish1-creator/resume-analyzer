@@ -10,9 +10,11 @@ function ResumeUpload() {
   const [experience, setExperience] = useState("");
   const [roles, setRoles] = useState([]);
   const [result, setResult] = useState(null);
+  const [animatedScore, setAnimatedScore] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // ================= FETCH ROLES =================
   useEffect(() => {
     axios
       .get(`${API_BASE}/api/resume/roles`)
@@ -23,6 +25,17 @@ function ResumeUpload() {
       });
   }, []);
 
+  // ================= ANIMATE SCORE =================
+  useEffect(() => {
+    if (result?.score >= 0) {
+      setAnimatedScore(0);
+      setTimeout(() => {
+        setAnimatedScore(result.score);
+      }, 150);
+    }
+  }, [result]);
+
+  // ================= HANDLE SUBMIT =================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -55,9 +68,17 @@ function ResumeUpload() {
     }
   };
 
+  // ================= PROGRESS COLOR CLASS =================
+  const getProgressClass = (score) => {
+    if (score >= 70) return "good";
+    if (score >= 40) return "avg";
+    return "bad";
+  };
+
   return (
     <div className="page">
       <div className="container">
+        {/* ================= UPLOAD CARD ================= */}
         <div className="card upload-card">
           <h2>Resume Analyzer</h2>
           <p className="subtitle">
@@ -101,30 +122,37 @@ function ResumeUpload() {
           {error && <p className="error">{error}</p>}
         </div>
 
+        {/* ================= RESULT CARD ================= */}
         {result && (
           <div className="card result-card">
             <h3>Candidate Match Result</h3>
 
             <div className="meta">
-              <span><b>Role:</b> {result.role}</span>
-              <span className="score">{result.score}% Match</span>
+              <span>
+                <b>Role:</b> {result.role}
+              </span>
+              <span className="score">{animatedScore}% Match</span>
             </div>
 
+            {/* ===== Progress Bar ===== */}
             <div className="progress">
               <div
-                className="progress-fill"
-                style={{ width: `${result.score}%` }}
+                className={`progress-fill ${getProgressClass(animatedScore)}`}
+                style={{ width: `${animatedScore}%` }}
               />
             </div>
 
+            {/* ===== Skills Section ===== */}
             <div className="skills-section">
               <p className="section-title">Matched Skills</p>
               <div className="chips matched">
-                {result.matchedSkills?.length
-                  ? result.matchedSkills.map((s) => (
-                      <span key={s}>{s}</span>
-                    ))
-                  : <span className="empty">None</span>}
+                {result.matchedSkills?.length ? (
+                  result.matchedSkills.map((s) => (
+                    <span key={s}>{s}</span>
+                  ))
+                ) : (
+                  <span className="empty">None</span>
+                )}
               </div>
 
               {result.missingSkills?.length > 0 && (
