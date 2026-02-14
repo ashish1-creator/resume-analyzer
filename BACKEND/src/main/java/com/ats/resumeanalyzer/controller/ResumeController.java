@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/resume")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")   // ✅ Allow all origins (important for deployed frontend)
 public class ResumeController {
 
     private final ResumeService resumeService;
